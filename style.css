@@ -1,0 +1,91 @@
+:root {
+    --text-color: #ffffff;
+    --accent-color: #00d4ff;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background: url('background.png') no-repeat center center fixed;
+    background-size: cover;
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 90%;
+    max-width: 700px;
+    margin: 50px 0;
+}
+
+/* Efekt Prześwitujący (Glassmorphism) */
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    padding: 30px;
+    margin-bottom: 25px;
+}
+
+/* Avatar */
+.avatar-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid var(--accent-color);
+    display: block;
+    margin: 0 auto 15px;
+    object-fit: cover;
+}
+
+/* Animacja RGB dla Nicku */
+.rgb-text {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 800;
+    margin: 10px 0;
+    background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rgb-animation 8s linear infinite;
+}
+
+@keyframes rgb-animation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.tagline { text-align: center; color: #ddd; font-weight: 600; }
+.stats { display: flex; justify-content: center; gap: 20px; opacity: 0.9; margin-top: 10px; }
+
+/* Timeline */
+h2 { border-left: 4px solid var(--accent-color); padding-left: 15px; margin-bottom: 20px; }
+.timeline { border-left: 2px solid var(--glass-border); padding-left: 20px; }
+.timeline-item { margin-bottom: 15px; position: relative; }
+.year { color: var(--accent-color); font-weight: bold; }
+
+/* Przyciski */
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background: var(--accent-color);
+    color: #000;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--accent-color); }
+
+footer { text-align: center; margin-top: 30px; font-size: 0.8rem; opacity: 0.6; }
