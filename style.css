@@ -1,91 +1,114 @@
 :root {
     --text-color: #ffffff;
     --accent-color: #00d4ff;
-    --glass-bg: rgba(255, 255, 255, 0.1);
-    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-bg: rgba(0, 0, 0, 0.5);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    /* Kolory Discorda */
+    --online: #43b581;
+    --idle: #faa61a;
+    --dnd: #f04747;
+    --offline: #747f8d;
 }
 
 body {
-    margin: 0;
-    padding: 0;
+    margin: 0; padding: 0;
     font-family: 'Inter', sans-serif;
-    background: url('background.png') no-repeat center center fixed;
-    background-size: cover;
     color: var(--text-color);
-    display: flex;
-    justify-content: center;
-    min-height: 100vh;
+    display: flex; justify-content: center;
+    min-height: 100vh; background: #000; overflow-x: hidden;
 }
 
-.container {
-    width: 90%;
-    max-width: 700px;
-    margin: 50px 0;
+#bg-video {
+    position: fixed; right: 0; bottom: 0;
+    min-width: 100%; min-height: 100%;
+    z-index: -1; object-fit: cover;
 }
 
-/* Efekt Prześwitujący (Glassmorphism) */
 .glass {
     background: var(--glass-bg);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border: 1px solid var(--glass-border);
     border-radius: 20px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-    padding: 30px;
-    margin-bottom: 25px;
 }
 
-/* Avatar */
-.avatar-img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 3px solid var(--accent-color);
-    display: block;
+/* Status Discord */
+.avatar-container {
+    position: relative;
+    width: 110px;
     margin: 0 auto 15px;
-    object-fit: cover;
 }
 
-/* Animacja RGB dla Nicku */
+.status-dot {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 3px solid #1e1e1e;
+}
+
+.status-dot.online { background: var(--online); box-shadow: 0 0 10px var(--online); }
+.status-dot.idle { background: var(--idle); box-shadow: 0 0 10px var(--idle); }
+.status-dot.dnd { background: var(--dnd); box-shadow: 0 0 10px var(--dnd); }
+.status-dot.offline { background: var(--offline); }
+
+.status-text { font-weight: 600; font-size: 0.9rem; margin-bottom: 20px; opacity: 0.8; }
+
+/* Odtwarzacz */
+.audio-player {
+    position: fixed; top: 20px; left: 20px;
+    padding: 15px; z-index: 9999;
+    display: flex; flex-direction: column; gap: 8px; min-width: 210px;
+}
+
+.music-info-row { display: flex; align-items: center; justify-content: space-between; }
+.music-name { font-size: 0.7rem; font-weight: 800; color: var(--accent-color); }
+
+/* Nawigacja */
+.nav-menu { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+.nav-btn {
+    background: var(--glass-bg); border: 1px solid var(--glass-border);
+    color: white; padding: 10px 20px; border-radius: 30px; cursor: pointer;
+    backdrop-filter: blur(10px); transition: 0.3s; font-weight: 600;
+}
+.nav-btn.active, .nav-btn:hover { background: var(--accent-color); color: #000; }
+
+/* System stron */
+.sub-page { display: none; width: 100%; }
+.sub-page.active { display: block; animation: fadeIn 0.5s ease; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Skille (Bez ikon) */
+.skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; }
+.skill-card { padding: 40px 20px; text-align: center; transition: 0.3s; }
+.skill-card:hover { transform: scale(1.03); border-color: var(--accent-color); }
+.skill-card h3 { font-size: 0.9rem; text-transform: uppercase; margin: 0; }
+
+/* Reszta stylu */
+.container { width: 90%; max-width: 700px; margin: 100px 0 50px; }
+.profile-card { text-align: center; padding: 40px; margin-bottom: 25px; }
+.avatar-img { width: 110px; height: 110px; border-radius: 50%; border: 3px solid var(--accent-color); object-fit: cover; }
+
 .rgb-text {
-    text-align: center;
-    font-size: 3rem;
-    font-weight: 800;
-    margin: 10px 0;
-    background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
-    background-size: 400% 400%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: rgb-animation 8s linear infinite;
+    font-size: 3.5rem; font-weight: 900;
+    background: linear-gradient(to right, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000);
+    background-size: 400%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    animation: rgb-move 8s linear infinite;
 }
 
-@keyframes rgb-animation {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
+@keyframes rgb-move { 0% { background-position: 0%; } 100% { background-position: 400%; } }
 
-.tagline { text-align: center; color: #ddd; font-weight: 600; }
-.stats { display: flex; justify-content: center; gap: 20px; opacity: 0.9; margin-top: 10px; }
+.content-section { padding: 30px; margin-bottom: 20px; }
+.timeline { border-left: 2px solid var(--glass-border); padding-left: 20px; text-align: left; }
+.year { color: var(--accent-color); font-weight: 800; }
 
-/* Timeline */
-h2 { border-left: 4px solid var(--accent-color); padding-left: 15px; margin-bottom: 20px; }
-.timeline { border-left: 2px solid var(--glass-border); padding-left: 20px; }
-.timeline-item { margin-bottom: 15px; position: relative; }
-.year { color: var(--accent-color); font-weight: bold; }
+#play-btn { background: var(--accent-color); border: none; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.65rem; }
+#volume-slider { -webkit-appearance: none; width: 100%; height: 4px; background: rgba(255,255,255,0.2); border-radius: 5px; outline: none; }
+#volume-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; background: var(--accent-color); border-radius: 50%; cursor: pointer; }
 
-/* Przyciski */
-.btn {
-    display: inline-block;
-    padding: 12px 25px;
-    background: var(--accent-color);
-    color: #000;
-    text-decoration: none;
-    border-radius: 10px;
-    font-weight: bold;
-    transition: 0.3s;
-}
+footer { text-align: center; opacity: 0.6; margin-top: 20px; font-size: 0.8rem; }
 
-.btn:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--accent-color); }
-
-footer { text-align: center; margin-top: 30px; font-size: 0.8rem; opacity: 0.6; }
+.btn-back { display: block; width: fit-content; margin: 30px auto; padding: 10px 30px; border: none; color: white; cursor: pointer; }
